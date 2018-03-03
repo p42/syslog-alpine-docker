@@ -1,0 +1,64 @@
+stages:
+  - build
+  - deploy
+
+variables:
+  IMAGE_NAME: "syslog-alpine"
+  GITHUB_PROJECT: "p42/syslog-alpine-docker.git"
+
+before_script:
+  - docker info
+
+build-master:
+  stage: build
+  script:
+    - git checkout master
+    - docker build --pull -t "${IMAGE_NAME}:latest" .
+  only:
+    - master
+
+build:
+  stage: build
+  script:
+    - git checkout ${CI_COMMIT_REF_NAME}
+    - docker build --pull -t "${IMAGE_NAME}:${CI_COMMIT_REF_NAME}" .
+  except:
+    - master
+
+# test-master:
+#   stage: test
+#   script:
+#     - docker run --rm "${IMAGE_NAME}:latest" /ci_tests/run_tests system
+#   only:
+#     - master
+#
+# test:
+#   stage: test
+#   script:
+#     - docker run --rm "${IMAGE_NAME}:${CI_COMMIT_REF_NAME}" /ci_tests/run_tests system
+#   except:
+#     - master
+
+deploy_to_github-master:
+  stage: deploy
+  script:
+    - git checkout master
+    - git push git@github.com:${GITHUB_PROJECT} master
+  only:
+    - master
+
+deploy_to_github:
+  stage: deploy
+  script:
+    - git checkout ${CI_COMMIT_REF_NAME}
+    - git push git@github.com:${GITHUB_PROJECT} ${CI_COMMIT_REF_NAME}
+  except:
+    - master
+
+deploy_tags_to_github:
+  stage: deploy
+  script:
+    - git checkout ${CI_COMMIT_REF_NAME}
+    - git push git@github.com:${GITHUB_PROJECT} ${CI_COMMIT_REF_NAME} --tags
+  only:
+    - tags
