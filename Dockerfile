@@ -1,4 +1,4 @@
-FROM project42/s6-alpine:3.7
+FROM project42/s6-alpine:3.5
 MAINTAINER Jordan Clark mail@jordanclark.us
 
 COPY container-files /
