@@ -22,7 +22,7 @@ The [s6-overlay project](https://github.com/just-containers/s6-overlay) is a ser
 | 3.5 | Latest Alpine Linux 3.5 series |
 | 3.4 | Latest Alpine Linux 3.4 series |
 | 3.3 | Latest Alpine Linux 3.3 series |
-| edge | Latest Alpine Linex edge series |
+| edge | Latest Alpine Linux edge series |
 | 3.8.0 | Alpine Linux 3.8.0 built on 2018-08-01 |
 
 ### Issues
