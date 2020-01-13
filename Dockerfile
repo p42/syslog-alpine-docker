@@ -1,4 +1,4 @@
-FROM project42/s6-alpine:3.8
+FROM project42/s6-alpine:edge
 MAINTAINER Jordan Clark mail@jordanclark.us
 
 COPY container-files /
